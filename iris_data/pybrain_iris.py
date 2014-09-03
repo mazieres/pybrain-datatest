@@ -1,3 +1,5 @@
+import numpy as np
+
 from pybrain.supervised.trainers import BackpropTrainer
 from pybrain.datasets import ClassificationDataSet
 from pybrain.tools.shortcuts import buildNetwork
@@ -34,3 +36,10 @@ for i in range(150):
           "  Train Error: %5.2f%%" % trainResult, \
           "  Test Error:  %5.2f%%" % testResult
 
+def nn_predict(values, verbose=True):
+	nn_res = net.activate(values)
+	idx_max_p = np.argmax(nn_res)
+	max_p = nn_res[idx_max_p]
+	if verbose:
+		print "Class {0} ({1})".format(idx_max_p, round(max_p, 3))
+	return idx_max_p, max_p
